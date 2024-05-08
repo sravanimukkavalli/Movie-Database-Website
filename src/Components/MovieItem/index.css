@@ -1,0 +1,45 @@
+.movie-card {
+  width: calc(30% - 0.5rem);
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.movie-details {
+  margin-top: 1rem;
+}
+
+.movie-details h3 {
+  margin-bottom: 0.5rem;
+}
+
+.movie-details p {
+  margin-bottom: 0.5rem;
+}
+
+.movie-details button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.movie-details button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .movie-card {
+    width: calc(50% - 0.5rem);
+  }
+}

@@ -1,0 +1,18 @@
+.movie-details {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.movie-details h2 {
+  margin-bottom: 1rem;
+}
+
+.movie-details img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.movie-details p {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,29 @@
+.cast-details {
+  text-align: center;
+}
+
+.cast-details h2 {
+  margin-bottom: 1rem;
+}
+
+.cast-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cast-member {
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.cast-member img {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cast-member p {
+  margin-top: 0.5rem;
+}
