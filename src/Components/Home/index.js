@@ -8,6 +8,21 @@ import './index.css'
 function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [response, setResponse] = useState([])
+  const [pagecount, updatePageCount] = useState(1)
+  const [totalPages, setTotalPages] = useState()
+  console.log(totalPages)
+
+  const onDecrementPageCount = () => {
+    if (pagecount > 1) {
+      updatePageCount(prev => prev - 1)
+    }
+  }
+
+  const onIncrementPageCount = () => {
+    if (pagecount < totalPages) {
+      updatePageCount(prev => prev + 1)
+    }
+  }
 
   const getUpdatedData = result =>
     result.map(movie => ({
@@ -19,8 +34,8 @@ function Home() {
 
   useEffect(() => {
     const getPopularMovies = async () => {
-      const api =
-        'https://api.themoviedb.org/3/movie/popular?api_key="1654471d315b96efded5fde452275b2f"&language=en-US&page=1'
+      const apiKey = '1654471d315b96efded5fde452275b2f'
+      const api = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${pagecount}`
       const options = {
         method: 'GET',
         headers: {
@@ -33,22 +48,42 @@ function Home() {
       if (apiResponse.ok === true) {
         const updatedData = getUpdatedData(data.results)
         setIsLoading(false)
+        setTotalPages(data.total_pages)
         setResponse(updatedData)
       }
     }
     getPopularMovies()
-  }, [])
+  }, [pagecount])
 
   return isLoading ? (
     <div className="loader-container">
       <Loader type="ThreeDots" width="30" color="#000000" />
     </div>
   ) : (
-    <ul className="movie-grid">
-      {response.map(eachMovie => (
-        <MovieItem key={eachMovie.id} movieDetails={eachMovie} />
-      ))}
-    </ul>
+    <>
+      <ul className="movie-grid">
+        {response.map(eachMovie => (
+          <MovieItem key={eachMovie.id} movieDetails={eachMovie} />
+        ))}
+      </ul>
+      <div className="button-controls">
+        <button
+          type="button"
+          className="my-button"
+          onClick={onDecrementPageCount}
+        >
+          Prev
+        </button>
+        <p className="page-count">{pagecount}</p>
+        <button
+          type="button"
+          className="my-button"
+          onClick={onIncrementPageCount}
+        >
+          Next
+        </button>
+      </div>
+    </>
   )
 }
 export default Home
