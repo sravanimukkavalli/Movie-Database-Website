@@ -9,8 +9,7 @@ function TopRatedMoviesRoute() {
   const [isLoading, setIsLoading] = useState(true)
   const [response, setResponse] = useState([])
   const [pageCount, updatePageCount] = useState(1)
-  const [totalPgaes, setTotalPages] = useState()
-  console.log(totalPgaes)
+  const [totalPagesCount, setTotalPages] = useState(null)
 
   const onDecrementPageCount = () => {
     if (pageCount > 1) {
@@ -19,7 +18,7 @@ function TopRatedMoviesRoute() {
   }
 
   const onIncrementPageCount = () => {
-    if (pageCount < totalPgaes) {
+    if (pageCount < totalPagesCount) {
       updatePageCount(prev => prev + 1)
     }
   }
