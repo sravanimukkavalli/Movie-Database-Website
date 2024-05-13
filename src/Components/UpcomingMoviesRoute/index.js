@@ -8,6 +8,20 @@ import './index.css'
 function UpcomingMoviesRoute() {
   const [isLoading, setIsLoading] = useState(true)
   const [response, setResponse] = useState([])
+  const [pageCount, updatePageCount] = useState(1)
+  const [totalPagesCount, setTotalPages] = useState(null)
+
+  const onDecrementPageCount = () => {
+    if (pageCount > 1) {
+      updatePageCount(prev => prev - 1)
+    }
+  }
+
+  const onIncrementPageCount = () => {
+    if (pageCount < totalPagesCount) {
+      updatePageCount(prev => prev + 1)
+    }
+  }
 
   const getUpdatedData = result =>
     result.map(movie => ({
@@ -29,7 +43,8 @@ function UpcomingMoviesRoute() {
 
   useEffect(() => {
     const getPopularMovies = async () => {
-      const api = `https://api.themoviedb.org/3/movie/upcoming?api_key="1654471d315b96efded5fde452275b2f"&language=en-US&page=1`
+      const apiKey = '1654471d315b96efded5fde452275b2f'
+      const api = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=en-US&page=${pageCount}`
       const options = {
         method: 'GET',
         headers: {
@@ -42,22 +57,42 @@ function UpcomingMoviesRoute() {
       if (apiResponse.ok === true) {
         const updatedData = getUpdatedData(data.results)
         setIsLoading(false)
+        setTotalPages(data.total_pages)
         setResponse(updatedData)
       }
     }
     getPopularMovies()
-  }, [])
+  }, [pageCount])
 
   return isLoading ? (
     <div className="loader-container">
       <Loader type="ThreeDots" width="30" color="#000000" />
     </div>
   ) : (
-    <ul className="movie-grid">
-      {response.map(eachMovie => (
-        <MovieItem key={eachMovie.id} movieDetails={eachMovie} />
-      ))}
-    </ul>
+    <>
+      <ul className="movie-grid">
+        {response.map(eachMovie => (
+          <MovieItem key={eachMovie.id} movieDetails={eachMovie} />
+        ))}
+      </ul>
+      <div className="button-controls">
+        <button
+          type="button"
+          className="my-button"
+          onClick={onDecrementPageCount}
+        >
+          Prev
+        </button>
+        <p className="page-count">{pageCount}</p>
+        <button
+          type="button"
+          className="my-button"
+          onClick={onIncrementPageCount}
+        >
+          Next
+        </button>
+      </div>
+    </>
   )
 }
 export default UpcomingMoviesRoute
