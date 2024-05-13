@@ -9,8 +9,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [response, setResponse] = useState([])
   const [pagecount, updatePageCount] = useState(1)
-  const [totalPages, setTotalPages] = useState()
-  console.log(totalPages)
+  const [totalPagesCount, setTotalPages] = useState(null)
 
   const onDecrementPageCount = () => {
     if (pagecount > 1) {
@@ -19,7 +18,7 @@ function Home() {
   }
 
   const onIncrementPageCount = () => {
-    if (pagecount < totalPages) {
+    if (pagecount < totalPagesCount) {
       updatePageCount(prev => prev + 1)
     }
   }
